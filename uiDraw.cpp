@@ -1,4 +1,4 @@
-/***********************************************************************
+ /***********************************************************************
  * Source File:
  *    User Interface Draw : put pixels on the screen
  * Author:
@@ -72,7 +72,7 @@ const char NUMBER_OUTLINES[10][20] =
  *   INPUT  topLeft   The top left corner of the character
  *          digit     The digit we are rendering: '0' .. '9'
  *************************************************************************/
-void drawDigit(const Point & topLeft, char digit)
+void drawDigit(const Point & topLeft, const char & digit)
 {
    // we better be only drawing digits
    assert(isdigit(digit));
@@ -80,7 +80,7 @@ void drawDigit(const Point & topLeft, char digit)
       return;
 
    // compute the row as specified by the digit
-   int r = digit - '0';
+   short r = digit - '0';
    assert(r >= 0 && r <= 9);
 
    // go through each segment.
@@ -109,7 +109,7 @@ void drawDigit(const Point & topLeft, char digit)
  *   INPUT  topLeft   The top left corner of the character
  *          digit     The digit we are rendering: '0' .. '9'
  *************************************************************************/
-void drawNumber(const Point & topLeft, int number)
+void drawNumber(const Point & topLeft, unsigned short & number)
 {
    // our cursor, if you will. It will advance as we output digits
    Point point = topLeft;
@@ -171,7 +171,7 @@ void drawText(const Point & topLeft, const char * text)
  *          rotation True circles are rotation independent.  However, if you
  *                   are drawing a 3-sided polygon (triangle), this matters!
  *************************************************************************/
-void drawPolygon(const Point & center, int radius, int points, int rotation)
+void drawPolygon(const Point & center, const short & radius, const short & points, const short & rotation)
 {
    // begin drawing
    glBegin(GL_LINE_LOOP);
@@ -192,7 +192,7 @@ void drawPolygon(const Point & center, int radius, int points, int rotation)
 
 }
 
-void drawBolt(const Point & center, int radius, int points, int rotation)
+void drawBolt(const Point & center, const short & radius, const short & points, const short & rotation)
 {
    // begin drawing
    glBegin(GL_LINE_LOOP);
@@ -222,7 +222,7 @@ void drawBolt(const Point & center, int radius, int points, int rotation)
  *           rotation Rotation in degrees
  *    OUTPUT point    The new position
  *************************************************************************/
-void rotate(Point & point, const Point & origin, int rotation)
+void rotate(Point & point, const Point & origin, const short & rotation)
 {
    // because sine and cosine are expensive, we want to call them only once
    double cosA = cos(deg2rad(rotation));
@@ -249,7 +249,7 @@ void rotate(Point & point, const Point & origin, int rotation)
  *          end       The position of the end of the line
  *************************************************************************/
 void drawLine(const Point & begin, const Point & end,
-              float red, float green, float blue)
+              const float & red, const float & green, const float & blue)
 {
   // Get ready...
   glBegin(GL_LINES);
@@ -273,8 +273,8 @@ void drawLander(const Point & point)
    // ultra simple point
    struct PT
    {
-      int x;
-      int y;
+      short x;
+      short y;
    } points[] = 
    {
       {-6, 0}, {-10,0}, {-8, 0}, {-8, 3},  // left foot
@@ -290,7 +290,7 @@ void drawLander(const Point & point)
   // draw it
   glBegin(GL_LINE_STRIP);
   glColor3f(.3, 1, .3);
-  for (int i = 0; i < sizeof(points) / sizeof(points[0]); i++)
+  for (short i = 0; i < sizeof(points) / sizeof(points[0]); i++)
        glVertex2f(point.getX() + points[i].x,
                   point.getY() + points[i].y);
 
@@ -311,8 +311,8 @@ void drawRedLander(const Point & point)
    // ultra simple point
    struct PT
    {
-      int x;
-      int y;
+      short x;
+      short y;
    } points[] = 
    {
       {-6, 0}, {-10,0}, {-8, 0}, {-8, 3},  // left foot
@@ -328,7 +328,7 @@ void drawRedLander(const Point & point)
    // draw it
    glBegin(GL_LINE_STRIP);
    glColor3f(1.0, 0, 0);
-   for (int i = 0; i < sizeof(points) / sizeof(points[0]); i++)
+   for (short i = 0; i < sizeof(points) / sizeof(points[0]); i++)
         glVertex2f(point.getX() + points[i].x,
                    point.getY() + points[i].y);
 
@@ -345,18 +345,18 @@ void drawRedLander(const Point & point)
  * Draw the flames coming out of a moonlander for thrust
  ***********************************************************************/
 void drawLanderFlames(const Point & point, 
-                      bool bottom,
-                      bool left,
-                      bool right)
+                      const bool & bottom,
+                      const bool & left,
+                      const bool & right)
 {
    // simple point
    struct PT
    {
-      int x;
-      int y;
+      short x;
+      short y;
    };
 
-   int iFlame = random(0, 3);  // so the flame flickers
+   short iFlame = random(0, 3);  // so the flame flickers
    
    // draw it
    glBegin(GL_LINE_LOOP);
@@ -373,7 +373,7 @@ void drawLanderFlames(const Point & point,
       };
       
       glVertex2f(point.getX() - 2, point.getY() + 2);
-      for (int i = 0; i < 3; i++)
+      for (short i = 0; i < 3; i++)
          glVertex2f(point.getX() + points[iFlame][i].x,
                    point.getY() + points[iFlame][i].y);
       glVertex2f(point.getX() + 2, point.getY() + 2);
@@ -390,7 +390,7 @@ void drawLanderFlames(const Point & point,
       };
       
       glVertex2f(point.getX() + 6, point.getY() + 12);
-      for (int i = 0; i < 3; i++)
+      for (short i = 0; i < 3; i++)
          glVertex2f(point.getX() + points[iFlame][i].x,
                     point.getY() + points[iFlame][i].y);
       glVertex2f(point.getX() + 6, point.getY() + 10);
@@ -407,7 +407,7 @@ void drawLanderFlames(const Point & point,
       };
       
       glVertex2f(point.getX() - 6, point.getY() + 12);
-      for (int i = 0; i < 3; i++)
+      for (short i = 0; i < 3; i++)
          glVertex2f(point.getX() + points[iFlame][i].x,
                     point.getY() + points[iFlame][i].y);
       glVertex2f(point.getX() - 6, point.getY() + 10);
@@ -425,7 +425,7 @@ void drawLanderFlames(const Point & point,
  *    INPUT:   min, max : The number of values (min <= num < max)
  *    OUTPUT   <return> : Return the integer
  ****************************************************************/
-int random(int min, int max)
+int random(const int & min, const int & max)
 {
    assert(min <= max);
    int num = (rand() % (max - min)) + min;
@@ -441,63 +441,13 @@ int random(int min, int max)
  *    INPUT:   min, max : The number of values (min <= num < max)
  *    OUTPUT   <return> : Return the double
  ****************************************************************/
-double random(double min, double max)
+double random(const double & min, const double & max)
 {
    assert(min <= max);
    double num = min + ((double)rand() / (double)RAND_MAX * (max - min));
-   
    assert(min <= num && num <= max);
 
    return num;
-}
-
-
-/************************************************************************
- * DRAW RECTANGLE
- * Draw a rectangle on the screen centered on a given point (center) of
- * a given size (width, height), and at a given orientation (rotation)
- *  INPUT  center    Center of the rectangle
- *         width     Horizontal size
- *         height    Vertical size
- *         rotation  Orientation
- *************************************************************************/
-void drawRect(const Point & center, int width, int height, int rotation)
-{
-   Point tl(false /*check*/); // top left
-   Point tr(false /*check*/); // top right 
-   Point bl(false /*check*/); // bottom left
-   Point br(false /*check*/); // bottom right
-
-   //Top Left point
-   tl.setX(center.getX() - (width  / 2));
-   tl.setY(center.getY() + (height / 2));
-
-   //Top right point
-   tr.setX(center.getX() + (width  / 2));
-   tr.setY(center.getY() + (height / 2));
-
-   //Bottom left point
-   bl.setX(center.getX() - (width  / 2));
-   bl.setY(center.getY() - (height / 2));
-
-   //Bottom right point
-   br.setX(center.getX() + (width  / 2));
-   br.setY(center.getY() - (height / 2));
-
-   //Rotate all points the given degrees
-   rotate(tl, center, rotation);
-   rotate(tr, center, rotation);
-   rotate(bl, center, rotation);
-   rotate(br, center, rotation);
-
-   //Finally draw the rectangle
-   glBegin(GL_LINE_STRIP);
-   glVertex2f(tl.getX(), tl.getY());
-   glVertex2f(tr.getX(), tr.getY());
-   glVertex2f(br.getX(), br.getY());
-   glVertex2f(bl.getX(), bl.getY());
-   glVertex2f(tl.getX(), tl.getY());
-   glEnd();
 }
 
 /************************************************************************
@@ -506,7 +456,7 @@ void drawRect(const Point & center, int width, int height, int rotation)
  *  INPUT   center   Center of the circle
  *          radius   Size of the circle
  *************************************************************************/
-void drawCircle(const Point & center, int radius)
+void drawCircle(const Point & center, const short & radius)
 {
    assert(radius > 1.0);
    const double increment = 1.0 / (double)radius;
@@ -543,6 +493,13 @@ void drawDot(const Point & point)
    glEnd();
 }
 
+void drawGreenDot(const Point & point)
+{
+  glColor3f(.1, .5, 0);
+  drawDot(point);
+  glColor3f(1, 1, 1);
+}
+
 /************************************************************************
  * DRAW RED DOT
  * Draw a single RED point on the screen, 2 pixels by 2 pixels
@@ -567,7 +524,7 @@ void drawRedDot(const Point & point)
 /****************
 * Draw Round.
 ****************/
-void drawRound(const Point & point, int rotation)
+void drawRound(const Point & point, const short & rotation)
 {
   Point up(point.getX(), point.getY() + 2);
   rotate(up, point, rotation);
@@ -585,7 +542,7 @@ void drawRound(const Point & point, int rotation)
  *        radius  The size of the bird
  *        hits    How many its remaining to kill the bird 
  *************************************************************************/
-void drawToughBird(const Point & center, float radius)
+void drawBoom(const Point & center, const float & radius)
 {
    assert(radius >= 1.0);
    const double increment = M_PI / 6.0;
@@ -620,7 +577,7 @@ void drawToughBird(const Point & center, float radius)
    glEnd();   
 }
 
-void drawTeleport(const Point & center, float radius)
+void drawTeleport(const Point & center, const float & radius)
 {
    assert(radius >= 1.0);
    const double increment = M_PI / 6.0;
@@ -661,7 +618,7 @@ void drawTeleport(const Point & center, float radius)
  *  INPUT point   The position of the sacred
  *        radius  The size of the bird
  *************************************************************************/
-void drawSacredBird(const Point & center, float radius)
+void drawSacredBird(const Point & center, const float & radius)
 {
    // handle auto-rotation
    static float rotation = 0.0;   
@@ -675,7 +632,7 @@ void drawSacredBird(const Point & center, float radius)
    
    //loop around a circle the given number of times drawing a line from
    //one point to the next
-   for (int i = 0; i < 5; i++)
+   for (short i = 0; i < 5; i++)
    {
       Point temp(false /*check*/);
       float radian = (float)i * (M_PI * 2.0) * 0.4;
@@ -693,13 +650,13 @@ void drawSacredBird(const Point & center, float radius)
 /**********************************************************************
  * DRAW SMALL ASTEROID
  **********************************************************************/
-void drawSmallAsteroid( const Point & center, int rotation, int r, int g, int b)
+void drawSmallAsteroid( const Point & center, const short & rotation, const short & r, const short & g, const short & b)
 {
    // ultra simple point
    struct PT
    {
-      int x;
-      int y;
+      short x;
+      short y;
    } points[] = 
    {
       {-5, 9},  {4, 8},   {8, 4},   
@@ -709,7 +666,7 @@ void drawSmallAsteroid( const Point & center, int rotation, int r, int g, int b)
    
    glColor3f(r, g, b);
    glBegin(GL_LINE_STRIP);
-   for (int i = 0; i < sizeof(points)/sizeof(PT); i++)
+   for (short i = 0; i < sizeof(points)/sizeof(PT); i++)
    {
       Point pt(center.getX() + points[i].x, 
                center.getY() + points[i].y);
@@ -723,13 +680,13 @@ void drawSmallAsteroid( const Point & center, int rotation, int r, int g, int b)
 /**********************************************************************
  * DRAW MEDIUM ASTEROID
  **********************************************************************/
-void drawMediumAsteroid( const Point & center, int rotation, int r, int g, int b)
+void drawMediumAsteroid( const Point & center, const short & rotation, const short & r, const short & g, const short & b)
 {
    // ultra simple point
    struct PT
    {
-      int x;
-      int y;
+      short x;
+      short y;
    } points[] = 
    {
       {2, 8},    {8, 15},    {12, 8}, 
@@ -740,7 +697,7 @@ void drawMediumAsteroid( const Point & center, int rotation, int r, int g, int b
    glColor3f(r, g, b);
    
    glBegin(GL_LINE_STRIP);
-   for (int i = 0; i < sizeof(points)/sizeof(PT); i++)
+   for (short i = 0; i < sizeof(points)/sizeof(PT); i++)
    {
       Point pt(center.getX() + points[i].x, 
                center.getY() + points[i].y);
@@ -754,13 +711,13 @@ void drawMediumAsteroid( const Point & center, int rotation, int r, int g, int b
 /**********************************************************************
  * DRAW LARGE ASTEROID
  **********************************************************************/
-void drawLargeAsteroid( const Point & center, int rotation, int r, int g, int b)
+void drawLargeAsteroid( const Point & center, const short & rotation, const short & r, const short & g, const short & b)
 {
    // ultra simple point
    struct PT
    {
-      int x;
-      int y;
+      short x;
+      short y;
    } points[] = 
    {
       {0, 12},    {8, 20}, {16, 14},
@@ -771,7 +728,7 @@ void drawLargeAsteroid( const Point & center, int rotation, int r, int g, int b)
    glColor3f(r, g, b);
    
    glBegin(GL_LINE_STRIP);
-   for (int i = 0; i < sizeof(points)/sizeof(PT); i++)
+   for (short i = 0; i < sizeof(points)/sizeof(PT); i++)
    {
       Point pt(center.getX() + points[i].x, 
                center.getY() + points[i].y);
@@ -785,13 +742,13 @@ void drawLargeAsteroid( const Point & center, int rotation, int r, int g, int b)
 /**********************************************************************
  * DRAW LARGE ASTEROID
  **********************************************************************/
-void drawHugeAsteroid( const Point & center, int rotation, int r, int g, int b, int cracks)
+void drawHugeAsteroid( const Point & center, const short & rotation, const short & r, const short & g, const short & b)
 {
    // ultra simple point
    struct PT
    {
-      int x;
-      int y;
+      short x;
+      short y;
    } points[] = 
    {
       {50, 0}, {40, 30}, {30, 40}, {20, 45}, {10, 20}, {0, 50},
@@ -802,7 +759,7 @@ void drawHugeAsteroid( const Point & center, int rotation, int r, int g, int b, 
    glColor3f(r, g, b);
    
    glBegin(GL_LINE_STRIP);
-   for (int i = 0; i < sizeof(points)/sizeof(PT); i++)
+   for (short i = 0; i < sizeof(points)/sizeof(PT); i++)
    {
       Point pt(center.getX() + points[i].x, 
                center.getY() + points[i].y);
@@ -811,40 +768,18 @@ void drawHugeAsteroid( const Point & center, int rotation, int r, int g, int b, 
    }
    glColor3f(1, 1, 1);
    glEnd();
-   if (cracks >= 2)
-   {
-    struct PT2
-    {
-      int x;
-      int y;
-    } points[] =
-    { 
-        {10, 20}, {0, 0}, {-20, 0}, {-10, 0}, {-15, 10}, {-10, 0}
-    };
-    glColor3f(r, g, b);
-    glBegin(GL_LINE_STRIP);
-    for (int i = 0; i < sizeof(points)/sizeof(PT2); i++)
-    {
-       Point pt(center.getX() + points[i].x, 
-                center.getY() + points[i].y);
-       rotate(pt, center, rotation);
-       glVertex2f(pt.getX(), pt.getY());
-    }
-    glColor3f(1, 1, 1);
-    glEnd();
-   }
 }
 
 /**********************************************************************
  * DRAW LARGE ASTEROID
  **********************************************************************/
-void drawBehemothAsteroid( const Point & center, int rotation, int r, int g, int b)
+void drawBehemothAsteroid( const Point & center, const short & rotation, const short & r, const short & g, const short & b)
 {
    // ultra simple point
    struct PT
    {
-      int x;
-      int y;
+      short x;
+      short y;
    } points[] = 
    {
       {150, 0}, {130, 70}, {100, 80}, {80, 80}, {50, 100}, {30, 100}, {0, 150},
@@ -855,7 +790,7 @@ void drawBehemothAsteroid( const Point & center, int rotation, int r, int g, int
    glColor3f(r, g, b);
    
    glBegin(GL_LINE_STRIP);
-   for (int i = 0; i < sizeof(points)/sizeof(PT); i++)
+   for (short i = 0; i < sizeof(points)/sizeof(PT); i++)
    {
       Point pt(center.getX() + points[i].x, 
                center.getY() + points[i].y);
@@ -872,13 +807,13 @@ void drawBehemothAsteroid( const Point & center, int rotation, int r, int g, int
  *  INPUT point   The position of the ship                                      
  *        angle   Which direction it is ponted                                  
  *************************************************************************/
-void drawShip(const Point & center, int rotation, int thrust)
+void drawShip(const Point & center, const short & rotation, const short & thrust)
 {
    // ultra simple point
    struct PT
    {
-      int x;
-      int y;
+      short x;
+      short y;
    };
    
    // draw the ship                                                 
@@ -889,7 +824,7 @@ void drawShip(const Point & center, int rotation, int thrust)
    
    glBegin(GL_LINE_STRIP);
    glColor3f(1,0,1);
-   for (int i = 0; i < sizeof(pointsShip)/sizeof(PT); i++)
+   for (short i = 0; i < sizeof(pointsShip)/sizeof(PT); i++)
    {
       Point pt(center.getX() + pointsShip[i].x, 
                center.getY() + pointsShip[i].y);
@@ -911,8 +846,8 @@ void drawShip(const Point & center, int rotation, int thrust)
       
       glBegin(GL_LINE_STRIP);
       glColor3f(1.0 /* red % */, 0.0 /* green % */, 0.0 /* blue % */);
-      int iFlame = random(0, 3);
-      for (int i = 0; i < 5; i++)
+      short iFlame = random(0, 3);
+      for (short i = 0; i < 5; i++)
       {
          Point pt(center.getX() + pointsFlame[iFlame][i].x, 
                   center.getY() + pointsFlame[iFlame][i].y);
@@ -934,8 +869,8 @@ void drawShip(const Point & center, int rotation, int thrust)
       
       glBegin(GL_LINE_STRIP);
       glColor3f(0 /* red % */, 1.0 /* green % */, 0.0 /* blue % */);
-      int iFlame = random(0, 3);
-      for (int i = 0; i < 5; i++)
+      short iFlame = random(0, 3);
+      for (short i = 0; i < 5; i++)
       {
          Point pt(center.getX() + pointsFlame[iFlame][i].x, 
                   center.getY() + pointsFlame[iFlame][i].y);
@@ -953,8 +888,8 @@ void drawShip(const Point & center, int rotation, int thrust)
       };
       
       glBegin(GL_LINE_STRIP);
-      int jFlame = random(0, 3);
-      for (int i = 0; i < 5; i++)
+      short jFlame = random(0, 3);
+      for (short i = 0; i < 5; i++)
       {
          Point pt(center.getX() + pointsFlame2[jFlame][i].x, 
                   center.getY() + pointsFlame2[jFlame][i].y);
@@ -971,13 +906,13 @@ void drawShip(const Point & center, int rotation, int thrust)
  *  INPUT point   The position of the ship                                      
  *        angle   Which direction it is ponted                                  
  *************************************************************************/
-void drawSniper(const Point & center, int rotation, int thrust, bool scope)
+void drawSniper(const Point & center, const short & rotation, const short & thrust, const bool & scope)
 {
    // ultra simple point
    struct PT
    {
-      int x;
-      int y;
+      short x;
+      short y;
    };
    
    // draw the ship                                                 
@@ -988,7 +923,7 @@ void drawSniper(const Point & center, int rotation, int thrust, bool scope)
    
    glBegin(GL_LINE_STRIP);
    glColor3f(.2,.5,1);
-   for (int i = 0; i < sizeof(pointsShip)/sizeof(PT); i++)
+   for (short i = 0; i < sizeof(pointsShip)/sizeof(PT); i++)
    {
       Point pt(center.getX() + pointsShip[i].x, 
                center.getY() + pointsShip[i].y);
@@ -1010,8 +945,8 @@ void drawSniper(const Point & center, int rotation, int thrust, bool scope)
       
       glBegin(GL_LINE_STRIP);
       glColor3f(1.0 /* red % */, 0.0 /* green % */, 0.0 /* blue % */);
-      int iFlame = random(0, 3);
-      for (int i = 0; i < 5; i++)
+      short iFlame = random(0, 3);
+      for (short i = 0; i < 5; i++)
       {
          Point pt(center.getX() + pointsFlame[iFlame][i].x, 
                   center.getY() + pointsFlame[iFlame][i].y);
@@ -1029,7 +964,7 @@ void drawSniper(const Point & center, int rotation, int thrust, bool scope)
       };
       glBegin(GL_LINE_STRIP);
       glColor3f(.5, 0.0, 0.0);
-      for (int i = 0; i < 2; i++)
+      for (short i = 0; i < 2; i++)
       {
         Point pt(center.getX() + aim[i].x, center.getY() + aim[i].y);
         rotate(pt, center, rotation);
@@ -1040,13 +975,13 @@ void drawSniper(const Point & center, int rotation, int thrust, bool scope)
    }
 }
 
-void drawTank(const Point & center, int rotation, int thrust)
+void drawTank(const Point & center, const short & rotation, const short & thrust)
 {
    // ultra simple point
    struct PT
    {
-      int x;
-      int y;
+      short x;
+      short y;
    };
    
    // draw the ship                                                 
@@ -1057,7 +992,7 @@ void drawTank(const Point & center, int rotation, int thrust)
    
    glBegin(GL_LINE_STRIP);
    glColor3f(.7, .5, .2);
-   for (int i = 0; i < sizeof(pointsShip)/sizeof(PT); i++)
+   for (short i = 0; i < sizeof(pointsShip)/sizeof(PT); i++)
    {
       Point pt(center.getX() + pointsShip[i].x, 
                center.getY() + pointsShip[i].y);
@@ -1079,8 +1014,8 @@ void drawTank(const Point & center, int rotation, int thrust)
       
       glBegin(GL_LINE_STRIP);
       glColor3f(0.3 /* red % */, .5 /* green % */, 0.0 /* blue % */);
-      int iFlame = random(0, 3);
-      for (int i = 0; i < 5; i++)
+      short iFlame = random(0, 3);
+      for (short i = 0; i < 5; i++)
       {
          Point pt(center.getX() + pointsFlame[iFlame][i].x, 
                   center.getY() + pointsFlame[iFlame][i].y);
@@ -1092,13 +1027,13 @@ void drawTank(const Point & center, int rotation, int thrust)
   }
 }
 
-void drawSuper(const Point & center, int rotation, int thrust, bool scope)
+void drawSuper(const Point & center, const short & rotation, const short & thrust, const bool & scope)
 {
    // ultra simple point
    struct PT
    {
-      int x;
-      int y;
+      short x;
+      short y;
    };
    
    // draw the ship                                                 
@@ -1109,7 +1044,7 @@ void drawSuper(const Point & center, int rotation, int thrust, bool scope)
    
    glBegin(GL_LINE_STRIP);
    glColor3f(.7, .7, .7);
-   for (int i = 0; i < sizeof(pointsShip)/sizeof(PT); i++)
+   for (short i = 0; i < sizeof(pointsShip)/sizeof(PT); i++)
    {
       Point pt(center.getX() + pointsShip[i].x, 
                center.getY() + pointsShip[i].y);
@@ -1131,8 +1066,8 @@ void drawSuper(const Point & center, int rotation, int thrust, bool scope)
       
       glBegin(GL_LINE_STRIP);
       glColor3f(0.7 /* red % */, .2 /* green % */, .2 /* blue % */);
-      int iFlame = random(0, 3);
-      for (int i = 0; i < 5; i++)
+      short iFlame = random(0, 3);
+      for (short i = 0; i < 5; i++)
       {
          Point pt(center.getX() + pointsFlame[iFlame][i].x, 
                   center.getY() + pointsFlame[iFlame][i].y);
@@ -1150,7 +1085,7 @@ void drawSuper(const Point & center, int rotation, int thrust, bool scope)
       };
       glBegin(GL_LINE_STRIP);
       glColor3f(0.4, 0.1, 0.2);
-      for (int i = 0; i < 2; i++)
+      for (short i = 0; i < 2; i++)
       {
         Point pt(center.getX() + aim[i].x, center.getY() + aim[i].y);
         rotate(pt, center, rotation);
@@ -1161,13 +1096,13 @@ void drawSuper(const Point & center, int rotation, int thrust, bool scope)
    }
 }
 
-void drawOldShip(const Point & center, int rotation, int thrust)
+void drawOldShip(const Point & center, const short & rotation, const short & thrust)
 {
    // ultra simple point
    struct PT
    {
-      int x;
-      int y;
+      short x;
+      short y;
    };
    
    // draw the ship                                                 
@@ -1178,7 +1113,7 @@ void drawOldShip(const Point & center, int rotation, int thrust)
    
    glBegin(GL_LINE_STRIP);
    glColor3f(1, 1, 1);
-   for (int i = 0; i < sizeof(pointsShip)/sizeof(PT); i++)
+   for (short i = 0; i < sizeof(pointsShip)/sizeof(PT); i++)
    {
       Point pt(center.getX() + pointsShip[i].x, 
                center.getY() + pointsShip[i].y);
@@ -1200,8 +1135,8 @@ void drawOldShip(const Point & center, int rotation, int thrust)
       
       glBegin(GL_LINE_STRIP);
       glColor3f(.7 /* red % */, .5 /* green % */, 0.0 /* blue % */);
-      int iFlame = random(0, 3);
-      for (int i = 0; i < 5; i++)
+      short iFlame = random(0, 3);
+      for (short i = 0; i < 5; i++)
       {
          Point pt(center.getX() + pointsFlame[iFlame][i].x, 
                   center.getY() + pointsFlame[iFlame][i].y);
@@ -1213,6 +1148,153 @@ void drawOldShip(const Point & center, int rotation, int thrust)
   }
 }
 
+void drawHarbinger(const Point & center, const short & rotation, const short & thrust)
+{
+   // ultra simple point
+   struct PT
+   {
+      float x;
+      float y;
+   };
+   
+   // draw the ship                                                 
+   const PT pointsRight[] = 
+   {
+      {6, 7}, {9, 7}, {9, -4}, {6, -4}, {6, 7}
+   };
+   
+   const PT pointsWiresRight[] = 
+   {
+      {6, -2}, {6, 0}, {3, 0}, {3, -2}, {6, -2}
+   };
 
+   const PT pointsCraft[] = 
+   {
+      {3, -9}, {3, 3}, {-3, 3}, {-3, -9}, {3, -9}
+   };
 
+   const PT pointsWindow[] = 
+   {
+      {1.5, 0}, {1.5, 3}, {-1.5, 3}, {-1.5, 0}, {1.5, 0}
+   };
+
+   const PT pointsWiresLeft[] = 
+   {
+      {-6, -2}, {-6, 0}, {-3, 0}, {-3, -2}, {-6, -2}
+   };
+
+   const PT pointsLeft[] = 
+   {
+      {-6, 7}, {-9, 7}, {-9, -4}, {-6, -4}, {-6, 7}
+   };
+
+   glBegin(GL_LINE_STRIP);
+   glColor3f(.1, .3, 0);
+   for (short i = 0; i < sizeof(pointsRight) / sizeof(PT); i++)
+   {
+      Point pt(center.getX() + pointsRight[i].x, 
+               center.getY() + pointsRight[i].y);
+      rotate(pt, center, rotation);
+      glVertex2f(pt.getX(), pt.getY());
+   }
+   glEnd();
+   glBegin(GL_LINE_STRIP);
+   glColor3f(.75, .3, 0);
+   for (short i = 0; i < sizeof(pointsWiresRight) / sizeof(PT); i++)
+   {
+      Point pt(center.getX() + pointsWiresRight[i].x, 
+               center.getY() + pointsWiresRight[i].y);
+      rotate(pt, center, rotation);
+      glVertex2f(pt.getX(), pt.getY());
+   }
+   glEnd();
+   glBegin(GL_LINE_STRIP);
+   glColor3f(.1, .3, 0);
+   for (short i = 0; i < sizeof(pointsCraft) / sizeof(PT); i++)
+   {
+      Point pt(center.getX() + pointsCraft[i].x, 
+               center.getY() + pointsCraft[i].y);
+      rotate(pt, center, rotation);
+      glVertex2f(pt.getX(), pt.getY());
+   }
+   glEnd();
+   glBegin(GL_LINE_STRIP);
+   glColor3f(.5, .2, 0);
+   for (short i = 0; i < sizeof(pointsWindow) / sizeof(PT); i++)
+   {
+      Point pt(center.getX() + pointsWindow[i].x, 
+               center.getY() + pointsWindow[i].y);
+      rotate(pt, center, rotation);
+      glVertex2f(pt.getX(), pt.getY());
+   }
+   glEnd();
+   glBegin(GL_LINE_STRIP);
+   glColor3f(0.75, .3, 0);
+   for (short i = 0; i < sizeof(pointsWiresLeft) / sizeof(PT); i++)
+   {
+      Point pt(center.getX() + pointsWiresLeft[i].x, 
+               center.getY() + pointsWiresLeft[i].y);
+      rotate(pt, center, rotation);
+      glVertex2f(pt.getX(), pt.getY());
+   }
+   glEnd();
+   glBegin(GL_LINE_STRIP);
+   glColor3f(.1, .3, 0);
+   for (short i = 0; i < sizeof(pointsLeft) / sizeof(PT); i++)
+   {
+      Point pt(center.getX() + pointsLeft[i].x, 
+               center.getY() + pointsLeft[i].y);
+      rotate(pt, center, rotation);
+      glVertex2f(pt.getX(), pt.getY());
+   }
+   glColor3f(1,1,1);
+   glEnd();
+
+   // draw the flame if necessary
+   if (thrust == 1)
+   {
+      const PT rightRocket[3][5] =
+      {
+         { {9, -4}, {8, -24}, {7, -10}, {7, -15}, {6, -4} },
+         { {9, -4}, {8, -15}, {8, -10}, {7, -14}, {6, -4} },
+         { {9, -4}, {8, -20}, {7, -15}, {6, -24}, {6, -4} }
+      };
+
+      const PT leftRocket[3][5] =
+      {
+         { {-9, -4}, {-8, -24}, {-7, -10}, {-7, -15}, {-6, -4} },
+         { {-9, -4}, {-8, -15}, {-8, -10}, {-7, -14}, {-6, -4} },
+         { {-9, -4}, {-8, -20}, {-7, -15}, {-6, -24}, {-6, -4} }
+      };
+      
+      glBegin(GL_LINE_STRIP);
+      glColor3f(0.75 /* red % */, .3 /* green % */, 0.0 /* blue % */);
+      short iFlame = random(0, 3);
+      for (short i = 0; i < 5; i++)
+      {
+         Point pt(center.getX() + rightRocket[iFlame][i].x, 
+                  center.getY() + rightRocket[iFlame][i].y);
+         rotate(pt, center, rotation);
+         glVertex2f(pt.getX(), pt.getY());
+      }
+      glEnd();
+      glBegin(GL_LINE_STRIP);
+      for (short i = 0; i < 5; i++)
+      {
+         Point pt(center.getX() + leftRocket[iFlame][i].x, 
+                  center.getY() + leftRocket[iFlame][i].y);
+         rotate(pt, center, rotation);
+         glVertex2f(pt.getX(), pt.getY());
+      }
+      glColor3f(1.0, 1.0, 1.0); // reset to white                                  
+      glEnd();
+  }
+}
+
+void drawUFO(const Point & point, const short & rotation)
+{
+  drawBolt(point, 10, 9, rotation);
+  drawBolt(point, 8, 3, rotation);
+  drawBolt(point, 8, 3, -rotation);
+}
 

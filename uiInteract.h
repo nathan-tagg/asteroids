@@ -71,6 +71,7 @@ public:
    int  isRight()     const { return isRightPress;  };
    int  isRapid()     const { return isRapidPress;  };
    bool isSpace()     const { return isSpacePress;  };
+   bool isZ()         const { return isZPress;      };
    bool isX()         const { return isXPress;      };
    bool isC()         const { return isCPress;      };
    bool isV()         const { return isVPress;      };
@@ -79,6 +80,10 @@ public:
    bool isM()         const { return isMPress;      };
    bool isI()         const { return isIPress;      };
    bool isT()         const { return isTPress;      };
+   bool isA()         const { return isAPress;      };
+   bool isS()         const { return isSPress;      };
+//   bool isD()         const { return isDPress;      };
+//   bool isF()         const { return isFPress;      };
    
    static void *p;                   // for client
    static void (*callBack)(const Interface *, void *);
@@ -96,6 +101,7 @@ private:
    static int  isRightPress;         //    "   right      "
    static int  isRapidPress;
    static bool isSpacePress;         //    "   space      "
+   static bool isZPress;
    static bool isXPress;
    static bool isCPress;             //    "   c          "
    static bool isVPress;
@@ -104,6 +110,10 @@ private:
    static bool isMPress;
    static bool isIPress;
    static bool isTPress;
+   static bool isAPress;
+   static bool isSPress;
+//   static bool isDPress;
+//   static bool isFPress;
 
 };
 

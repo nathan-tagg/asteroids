@@ -9,7 +9,7 @@
 class Tank : public Ship
 {
 private:
-	int thrust;
+	bool thrust;
 public:
   	/***********************************************
   	* Constructors.
@@ -27,21 +27,29 @@ public:
  	/***********************************************
   * Apply meathods: These meathods call the mutators for the velocity variable. 
   ***********************************************/
-  void up()       { velocity.addDY(-.4 * sin((rotation - 90) / 57.2958)); velocity.addDX(-.4 * cos((rotation - 90) / 57.2958)); thrust = 1; };
+  void up()       { velocity.addDY(-.2 * sin((rotation - 90) / 57.2958)); velocity.addDX(-.2 * cos((rotation - 90) / 57.2958)); thrust = true; };
   void down()     
   { 
     if (velocity.getDX() < 0) 
-      velocity.addDX(.2); 
+      velocity.addDX(.1); 
     else if (velocity.getDX() > 0)
-      velocity.addDX(-.2);
+      velocity.addDX(-.1);
     if (velocity.getDY() < 0)
-      velocity.addDY(.2); 
+      velocity.addDY(.1); 
     else if (velocity.getDY() > 0)
-      velocity.addDY(-.2);
+      velocity.addDY(-.1);
+    if (velocity.getDX() < .1 && velocity.getDX() > -.1)
+    {
+      velocity.setDX(0);
+    }
+    if (velocity.getDY() < .1 && velocity.getDY() > -.1)
+    {
+      velocity.setDY(0);
+    }
   };
-  void left()     { if (flip) { rotation -= 12; } else { rotation += 12; } };
-  void right()    { if (flip) { rotation += 12; } else { rotation -= 12; } };
-  void constant() { thrust = 0; };
+  void left()     { if (flip) { rotation -= 5; } else { rotation += 5; } };
+  void right()    { if (flip) { rotation += 5; } else { rotation -= 5; } };
+  void constant() { thrust = false; };
   
  	/*********************************************
   * Draw: This meathod will draw the lander in the environment.

@@ -6,12 +6,12 @@
 class Rock : public FlyingObject
 {
 protected:
-	int size;
-	int immortal;
+	short size;
+	short immortal;
 public:
-	int getSize() { return size; };
+	short getSize() { return size; };
 	void setVelocity(Velocity v) { velocity = v; };
-	int isImmortal() { return immortal; };
+	short isImmortal() { return immortal; };
 
 };
 

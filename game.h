@@ -1,14 +1,6 @@
 /*************************************************************
- * File: game.h
- * Author: Br. Burton
- *
- * Description: The game of Skeet. This class holds each piece
- *  of the game (birds, bullets, rifle, score). It also has
- *  methods that make the game happen (advance, interact, etc.)
- *
- * Please DO NOT share this code with other students from
- *  other sections or other semesters. They may not receive
- *  the same code that you are receiving.
+ * Header File: GAME
+ * Author: Nathan Tagg
  *************************************************************/
 
 #ifndef GAME_H
@@ -35,6 +27,8 @@
 #include "tank.h"
 #include "ship.h"
 #include "oldy.h"
+#include "harbinger.h"
+#include "ufo.h"
 //#include <irrklang/irrKlang.h>
 
 /*****************************************
@@ -64,20 +58,26 @@ public:
     *  step in time.
     *********************************************/
    void advance();
-   void createRocks(int num);
+   void createRocks(short num);
    void advanceRocks();
    void advanceBullets();
    void advanceShip();
    void collisions();
+   void seek();
    void displayInfo();
+   bool helpers();
    
 private:
    // The coordinates of the screen
    Point topLeft;
    Point bottomRight;   
-   int score;
-   int distance;
-   int numRocks;
+   unsigned short score;
+   unsigned short level;
+   unsigned short clock;
+   short distance;
+   short numRocks;
+   short A;
+   short S;
 
    //ISoundEngine *SoundEngine;
    Rock * closest;
@@ -88,6 +88,8 @@ private:
    SuperSpacer super;
    Tank tank;
    Oldy oldy;
+   Harbinger harbinger;
+   Ufo ufo;
    std::list<Bullet*> bullets;
    std::list<Rock*> rocks;
    string code;

@@ -9,7 +9,7 @@
 class SuperSpacer : public Ship
 {
 private:
-	int thrust;
+	bool thrust;
   bool scope;
 public:
   	/***********************************************
@@ -29,20 +29,20 @@ public:
  	/***********************************************
   * Apply meathods: These meathods call the mutators for the velocity variable. 
   ***********************************************/
-  void up()       { velocity.addDY(-2 * sin((rotation - 90) / 57.2958)); velocity.addDX(-2 * cos((rotation - 90) / 57.2958)); thrust = 1; };
+  void up()       { velocity.addDY(-.8 * sin((rotation - 90) / 57.2958)); velocity.addDX(-.8 * cos((rotation - 90) / 57.2958)); thrust = true; };
   void down()     
   { 
-    if (velocity.getDX() < -0.5) 
-      velocity.addDX(1); 
-    else if (velocity.getDX() > 0.5)
-      velocity.addDX(-1);
-    if (velocity.getDY() < -0.5)
-      velocity.addDY(1); 
-    else if (velocity.getDY() > 0.5)
-      velocity.addDY(-1); 
-    if (velocity.getDX() >= 1 && velocity.getDX() <= -1)
+    if (velocity.getDX() < -0.4) 
+      velocity.addDX(.4); 
+    else if (velocity.getDX() > 0.4)
+      velocity.addDX(-.4);
+    if (velocity.getDY() < -0.4)
+      velocity.addDY(.4); 
+    else if (velocity.getDY() > 0.4)
+      velocity.addDY(-.4); 
+    if (velocity.getDX() <= .4 && velocity.getDX() >= -.4)
       velocity.setDX(0);
-    if (velocity.getDY() >= 1 && velocity.getDY() <= -1)
+    if (velocity.getDY() <= .4 && velocity.getDY() >= -.4)
       velocity.setDY(0);
 
   };
@@ -51,16 +51,16 @@ public:
     if (scope)
     { 
       if ( flip )
-        rotation -= 1.0;
+        rotation -= 0.5;
       else
-        rotation += 1.0;
+        rotation += 0.5;
     }
     else
     {
       if ( flip )
-        rotation -= 12.0;
+        rotation -= 5.0;
       else
-        rotation += 12.0;
+        rotation += 5.0;
     }
     scope = false;
   };
@@ -69,21 +69,21 @@ public:
     if (scope)
     { 
       if ( flip )
-        rotation += 1.0;
+        rotation += 0.5;
       else
-        rotation -= 1.0;
+        rotation -= 0.5;
     }
     else
     {
       if ( flip )
-        rotation += 12.0;
+        rotation += 5.0;
       else
-        rotation -= 12.0;
+        rotation -= 5.0;
     }
     scope = false;
 
   }; 
-  void constant() { thrust = 0;};
+  void constant() { thrust = false;};
   
  	/*********************************************
   * Draw: This meathod will draw the lander in the environment.

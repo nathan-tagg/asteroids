@@ -37,10 +37,10 @@ public:
    void addX(float dx)      { setX(getX() + dx);     }
    void addY(float dy)      { setY(getY() + dy);     }
 
-   friend int operator - (const Point & lhs, const Point & rhs)    // non - member friend
+   friend short operator - (const Point & lhs, const Point & rhs)    // non - member friend
    {
-      int distance = (sqrtf((lhs.getX() - rhs.getX()) * (lhs.getX() - rhs.getX()) + (lhs.getY() - rhs.getY()) * (lhs.getY() - rhs.getY())));
-      return distance;  // returns non default constructor
+      short distance = (sqrtf((lhs.getX() - rhs.getX()) * (lhs.getX() - rhs.getX()) + (lhs.getY() - rhs.getY()) * (lhs.getY() - rhs.getY())));
+      return distance;  // returns the distance between the two points
    }
 
 private:

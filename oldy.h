@@ -9,7 +9,7 @@
 class Oldy : public Ship
 {
 private:
-	int thrust;
+	short thrust;
   bool secret;
 public:
   	/***********************************************
@@ -28,11 +28,11 @@ public:
  	/***********************************************
   * Apply meathods: These meathods call the mutators for the velocity variable. 
   ***********************************************/
-  void up()       { velocity.addDY(-.15 * sin((rotation - 90) / 57.2958)); velocity.addDX(-.15 * cos((rotation - 90) / 57.2958)); thrust = 1; };
+  void up()       { velocity.addDY(-.075 * sin((rotation - 90) / 57.2958)); velocity.addDX(-.075 * cos((rotation - 90) / 57.2958)); thrust = false; };
   void down()     { secret = true; };
-  void left()     { if (flip) rotation -= 3; else rotation += 3; };
-  void right()    { if (flip) rotation += 3; else rotation -= 3; };
-  void constant() { thrust = 0; secret = false; };
+  void left()     { if (flip) rotation -= 2; else rotation += 2; };
+  void right()    { if (flip) rotation += 2; else rotation -= 2; };
+  void constant() { thrust = false; secret = false; };
   
  	/*********************************************
   * Draw: This meathod will draw the lander in the environment.

@@ -9,25 +9,25 @@
 class LargeRock : public Rock
 {
 private:
-	int rotation;
-	float angle;
-	int direction;
-	int spin;
+	short rotation;
+	short angle;
+	short direction;
+	short spin;
 
 public:
 	LargeRock() 
 	{ 
 		alive = true;
 		direction = random(0, 2);
-		angle = random(0.00, 360.00);
-		velocity.setDX(cos(angle) * 2); 
-		velocity.setDY(sin(angle) * 2); 
+		angle = random(0, 360);
+		velocity.setDX(cos(angle) * .5); 
+		velocity.setDY(sin(angle) * .5); 
 		rotation = random(-100, 100);
-		spin = random(3,5); 
+		spin = random(1,3); 
 		size = 18;
-		immortal = 20;
+		immortal = 80;
 	};
-	void draw() 
+	virtual void draw() 
 	{ 	
 		if (immortal)
 		{

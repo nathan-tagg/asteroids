@@ -6,7 +6,7 @@
 class Ship : public FlyingObject
 {
 protected:
-	int type;
+	short type;
 	float rotation;
 	bool flip;
 public:
@@ -26,7 +26,7 @@ public:
 		draw(); 
 		constant();
 	};
-	int getType() { return type; };
+	short getType() { return type; };
 	float getRotation() { return rotation; };
  	void setRotation(float r) { rotation = r; };
  	void invert() { flip = !flip; };

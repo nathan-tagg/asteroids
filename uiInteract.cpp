@@ -177,6 +177,9 @@ void Interface::keyEvent(int key, bool fDown)
          isSpacePress = fDown;
          isRapidPress = fDown;
          break;
+      case 'z':
+         isZPress = fDown;
+         break;
       case 'x':
          isXPress = fDown;
          break;
@@ -201,6 +204,18 @@ void Interface::keyEvent(int key, bool fDown)
       case 't':
          isTPress = fDown;
          break;
+      case 'a':
+         isAPress = fDown;
+         break;
+      case 's':
+         isSPress = fDown;
+         break;
+//      case 'd':
+//         isDPress = fDown;
+//         break;
+//      case 'f':
+//         isFPress = fDown;
+//         break; 
 
    }
 }
@@ -223,6 +238,7 @@ void Interface::keyEvent()
    if (isRapidPress)
       isRapidPress++;
    isSpacePress = false;
+   isZPress = false;
    isXPress = false;
    isCPress = false;
    isVPress = false;
@@ -231,6 +247,10 @@ void Interface::keyEvent()
    isMPress = false;
    isIPress = false;
    isTPress = false;
+   isAPress = false;
+   isSPress = false;
+//   isDPress = false;
+//   isFPress = false;
 }
 
 
@@ -277,6 +297,7 @@ int          Interface::isLeftPress  = 0;
 int          Interface::isRightPress = 0;
 int          Interface::isRapidPress = 0;
 bool         Interface::isSpacePress = false;
+bool         Interface::isZPress =     false;
 bool         Interface::isXPress =     false;
 bool         Interface::isCPress =     false;
 bool         Interface::isVPress =     false;
@@ -285,8 +306,12 @@ bool         Interface::isNPress =     false;
 bool         Interface::isMPress =     false;
 bool         Interface::isIPress =     false;
 bool         Interface::isTPress =     false;
+bool         Interface::isAPress =     false;
+bool         Interface::isSPress =     false;
+//bool         Interface::isDPress =     false;
+//bool         Interface::isFPress =     false;
 bool         Interface::initialized  = false;
-double       Interface::timePeriod   = 1.0 / 100; // default to 30 frames/second
+double       Interface::timePeriod   = 1.0 / 120; // default to 30 frames/second
 unsigned int Interface::nextTick     = 0;        // redraw now please
 void *       Interface::p            = NULL;
 void (*Interface::callBack)(const Interface *, void *) = NULL;
@@ -361,7 +386,6 @@ void Interface::run(void (*callBack)(const Interface *, void *), void *p)
    // setup the callbacks
    this->p = p;
    this->callBack = callBack;
-
    glutMainLoop();
 
    return;

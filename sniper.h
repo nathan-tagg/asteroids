@@ -10,7 +10,7 @@
 class Sniper : public Ship
 {
 private:
-	int thrust;
+	bool thrust;
   bool scope;
 public:
   	/***********************************************
@@ -28,23 +28,23 @@ public:
  	/***********************************************
   * Apply meathods: These meathods call the mutators for the velocity variable. 
   ***********************************************/
-  void up()       { velocity.addDY(-.3 * sin((rotation - 90) / 57.2958)); velocity.addDX(-.3 * cos((rotation - 90) / 57.2958)); thrust = 1; };
+  void up()       { velocity.addDY(-.1 * sin((rotation - 90) / 57.2958)); velocity.addDX(-.1 * cos((rotation - 90) / 57.2958)); thrust = true; };
   void down()     {};
   void left()     
   {
     if (scope)
     { 
       if ( flip )
-        rotation += 1.0;
+        rotation += .5;
       else
-        rotation -= 1.0;
+        rotation -= .5;
     }
     else
     {
       if ( flip )
-        rotation += 8.0;
+        rotation += 3.0;
       else
-        rotation -= 8.0;
+        rotation -= 3.0;
     }
   };
   void right()    
@@ -52,19 +52,19 @@ public:
     if (scope)
     { 
       if ( flip )
-        rotation -= 1.0;
+        rotation -= .5;
       else
-        rotation += 1.0;
+        rotation += .5;
     }
   else
   {
     if ( flip )
-      rotation -= 8.0;
+      rotation -= 3.0;
     else
-      rotation += 8.0;
+      rotation += 3.0;
   }
   };
-  void constant() { thrust = 0; };
+  void constant() { thrust = false; };
   
  	/*********************************************
   * Draw: This meathod will draw the lander in the environment.
