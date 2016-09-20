@@ -1,6 +1,6 @@
 # Asteroids
 
-- This game was inspired by the 1979 Atari origional asteroids game. The goal of the game is safely navegate your craft through the outer rims of the solar system, surviving as long as possible in the dangeroous asteroid belt.
+- This game was inspired by the 1979 Atari origional asteroids game. The goal of the game is to safely navegate your craft through the outer rims of the solar system, surviving as long as possible in the dangeroous asteroid belt.
 
 - Use the directional arrow keys to navigate your space craft and press the space bar to fire your cannons.
 
